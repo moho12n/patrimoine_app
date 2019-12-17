@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'dart:ui' show ImageFilter;
 //------------------ POP UP --------------------//
@@ -61,8 +61,39 @@ void showOnTapMessage(BuildContext context) {
       child: MyDialog(
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Text("hey"))
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 5,
+              ),
+
+              Text("data"),
+              
+              RatingBarIndicator(
+                
+                rating: 5,
+                itemBuilder: (context, index) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                itemCount: 5,
+                itemSize: 25.0,
+                direction: Axis.horizontal,
+              ),
+
+              // FlutterRatingBar(
+              //   initialRating: 3,
+              //   fillColor: Colors.amber,
+              //   borderColor: Colors.amber.withAlpha(50),
+              //   allowHalfRating: true,
+              //   onRatingUpdate: (rating) {
+              //     print(rating);
+              //   },
+              // ),
+            ],
+          ),
+        )
       ])));
   showDialog(context: context, child: alert);
 }
