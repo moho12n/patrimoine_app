@@ -37,7 +37,10 @@ dev_dependencies:
   flutter_speed_dial: ^1.2.5
   unicorndial: "^1.1.5"
   flutter_rating_bar: ^3.0.0
-
+  flutter_rating: ^0.0.2
+  keyboard_visibility: any 
+  
+  image_picker: ^0.6.1+4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

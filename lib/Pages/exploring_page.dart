@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'UI/pop_up_Feedback.dart';
-import 'dart:ui' show ImageFilter;
-
-class MainMap extends StatefulWidget {
-  MainMap({
+import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
+import 'map_main.dart';
+class ExploringMap extends StatefulWidget {
+  ExploringMap({
     Key key,
     this.parameter,
   }) : super(key: key);
@@ -18,13 +16,14 @@ class MainMap extends StatefulWidget {
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MainMap> {
+class _MyStatefulWidgetState extends State<ExploringMap> {
   Completer<GoogleMapController> _controller = Completer();
 
   static const LatLng _center = const LatLng(36.737232, 3.086472);
 
-  final Set<Marker> _markers = {};
+  final Set<Marker> _markers = prefix0.markers;
 
+  
   LatLng _lastMapPosition = _center;
 
   MapType _currentMapType = MapType.normal;
@@ -41,6 +40,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
           mapType: _currentMapType,
           markers: _markers,
           onCameraMove: _onCameraMove,
+          
         ),
         Center(
           child: Icon(
@@ -61,12 +61,6 @@ class _MyStatefulWidgetState extends State<MainMap> {
                   child: const Icon(Icons.map, size: 36.0),
                 ),
                 SizedBox(height: 16.0),
-                FloatingActionButton(
-                  onPressed: _onAddMarkerButtonPressed,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.green,
-                  child: const Icon(Icons.add_location, size: 36.0),
-                ),
               ],
             ),
           ),
@@ -80,32 +74,6 @@ class _MyStatefulWidgetState extends State<MainMap> {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
           : MapType.normal;
-    });
-  }
-
-  void _onAddMarkerButtonPressed() {
-    setState(() {
-      _markers.add(Marker(
-        onTap: () {
-          showOnTapMessage(context);
-        },
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        position: _lastMapPosition,
-        infoWindow: InfoWindow(
-            title: 'Donner un feedback',
-            onTap: () {
-              Fluttertoast.showToast(
-                  msg: "Veuillez remplir les informations suivantes",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 12.0);
-            }),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
     });
   }
 

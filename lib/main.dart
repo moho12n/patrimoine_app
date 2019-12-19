@@ -1,7 +1,7 @@
 
-import 'map_main.dart';
+import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
-
+import 'Pages/exploring_page.dart';
 void main() => runApp(MaterialApp(home: MyApp()));
 
 BuildContext contextGlobal;
@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Text("hey"),
+    ExploringMap(),
     MainMap(),
     Text("Profile")
   ];
@@ -39,11 +39,11 @@ class _MyAppState extends State<MyApp> {
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.account_balance),
-            title: new Text('Home'),
+            title: new Text('Explore'),
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.add_location),
-            title: new Text('Messages'),
+            title: new Text('Main'),
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), title: Text('Profile'))
