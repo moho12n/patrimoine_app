@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
+import 'package:patrimoine_app/theme.dart';
 import 'map_main.dart';
 class ExploringMap extends StatefulWidget {
   ExploringMap({
@@ -42,14 +43,8 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
           onCameraMove: _onCameraMove,
           
         ),
-        Center(
-          child: Icon(
-            Icons.add_location,
-            size: 36.0,
-          ),
-        ),
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(vertical: 118,horizontal: 16),
           child: Align(
             alignment: Alignment.topRight,
             child: Column(
@@ -65,6 +60,51 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 48,
+          ),
+          child: Container(
+            height: 54,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 12,
+                    offset: Offset(0, 12))
+              ],
+            ),
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 18,
+                ),
+                Text(
+                  "Rechercher",
+                  style: new TextStyle(
+                      color: ThemeColors.greyBG,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18),
+                ),
+                Expanded(
+                  child: SizedBox(),
+                ),
+                /*Image.asset(
+                  'assets/icons/Search.png',
+                  height: 22,
+                ),*/
+                SizedBox(
+                  width: 18,
+                )
+              ],
+            ),
+          ),
+        ),
+        
       ],
     );
   }

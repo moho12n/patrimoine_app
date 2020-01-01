@@ -1,10 +1,21 @@
+import 'package:patrimoine_app/Pages/sign_up.dart';
 
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
-void main() => runApp(MaterialApp(home: MyApp()));
+import 'example.dart';
+import 'theme.dart';
 
+void main() => runApp(MaterialApp(
+      home: SignUpFirstPage(),
+      theme: ThemeData(unselectedWidgetColor: Colors.white70),
+    ));
+/*void main() {
+  runApp(RoutesWidget());
+}
+*/
 BuildContext contextGlobal;
+final scaffoldkey = GlobalKey<ScaffoldState>();
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,21 +24,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
-  final List<Widget> _children = [
-    ExploringMap(),
-    MainMap(),
-    Text("Profile")
-  ];
-
+  final List<Widget> _children = [ExploringMap(), MainMap(), Text("Profile")];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Maps Sample App'),
-        backgroundColor: Colors.green[700],
-      ),
-      body: Center(
+      key: scaffoldkey,
+      body: Container(
         child: _children[_currentIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -38,12 +41,12 @@ class _MyAppState extends State<MyApp> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.account_balance),
-            title: new Text('Explore'),
+            icon: Icon(Icons.account_balance),
+            title: Text('Explore'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.add_location),
-            title: new Text('Main'),
+            icon: Icon(Icons.add_location),
+            title: Text('Main'),
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), title: Text('Profile'))
@@ -51,10 +54,10 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-//--------- UI 
- 
+//--------- UI
+
 //--------------------- Methods
- 
+
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
