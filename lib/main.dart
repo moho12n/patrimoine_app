@@ -6,13 +6,17 @@ import 'theme.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
-      //theme: ThemeData(unselectedWidgetColor: Colors.black),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
 /*void main() {
   runApp(RoutesWidget());
 }*/
+
+//********declaration */
 BuildContext contextGlobal;
 final scaffoldkey = GlobalKey<ScaffoldState>();
+int indexGlobal;
 
 class MyApp extends StatefulWidget {
   @override
@@ -62,6 +66,7 @@ class _MyAppState extends State<MyApp> {
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
+      indexGlobal = index;
     });
   }
 

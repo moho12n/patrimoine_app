@@ -9,8 +9,8 @@ import 'dart:ui' show ImageFilter;
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:geocoder/geocoder.dart';
 import '../main.dart';
+import '../UI/pop_up_Avis.dart';
 
 Set<Marker> markers = {};
 BuildContext myContext;
@@ -214,10 +214,15 @@ class _MyStatefulWidgetState extends State<MainMap> {
   }
 
   showPopUp(BuildContext context2) {
-    Navigator.of(context2).push(
-      PageRouteBuilder(
-           
-           pageBuilder: (context2, _, __) => prefix0.Dialog(), opaque: false),
-    );
+    indexGlobal == 1
+        ? Navigator.of(context2).push(
+            PageRouteBuilder(
+                pageBuilder: (context2, _, __) => prefix0.Dialog(),
+                opaque: false),
+          )
+        : Navigator.of(context2).push(
+            PageRouteBuilder(
+                pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
+          );
   }
 }
