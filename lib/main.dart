@@ -8,7 +8,7 @@ import 'theme.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
-      theme: ThemeData(unselectedWidgetColor: Colors.white70),
+      //theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
 /*void main() {
   runApp(RoutesWidget());
@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _currentIndex = 0;
-  final List<Widget> _children = [ExploringMap(), MainMap(), Text("Profile")];
+  final List<Widget> _children = [ExploringMap(), MainMap()];
 
   @override
   Widget build(BuildContext context) {
@@ -33,22 +33,31 @@ class _MyAppState extends State<MyApp> {
         child: _children[_currentIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.green,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white54,
+        /*type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: ThemeColors.Green,
+        unselectedItemColor: Colors.green,        
+        */
+        backgroundColor: Colors.white,
+        selectedItemColor: ThemeColors.Green,
+        unselectedItemColor: Colors.black38,
         onTap: onTabTapped,
         currentIndex: _currentIndex,
+        selectedFontSize: 0,
+        iconSize: 30,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance),
-            title: Text('Explore'),
+            icon: Icon(
+              Icons.location_city,
+            ),
+            title: Text(""),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_location),
-            title: Text('Main'),
+            icon: Icon(
+              Icons.edit_location,
+            ),
+            title: Text(""),
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Profile'))
         ],
       ),
     );
@@ -63,4 +72,3 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
-

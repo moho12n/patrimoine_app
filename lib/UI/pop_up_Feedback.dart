@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:io';
 //import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:patrimoine_app/theme.dart';
 //------------------ POP UP --------------------//
 
 class MyDialog extends StatelessWidget {
@@ -145,19 +146,30 @@ class _MyDialogState extends State<Dialog> {
                       "Partagez votre Feedback ! ",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 25,
-                          letterSpacing: 1.0,
-                          fontWeight: FontWeight.bold),
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                        letterSpacing: 1.0,
+                        color: Color(0xff686868),
+                      ),
                     ),
                     SizedBox(
                       height: 12.0,
                     ),
+                    Text(
+                      "Évalue le lieu ",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        color: Color(0xff686868),
+                      ),
+                    ),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        SizedBox(
-                          width: 10,
-                        ),
                         StarRating(
                           size: 35.0,
                           rating: rating,
@@ -222,11 +234,11 @@ class _MyDialogState extends State<Dialog> {
                             );
                           },
                           textColor: Colors.white,
-                          color: Colors.green,
+                          color: Colors.transparent,
                           child: Text(
                             "ANNULER",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: ThemeColors.greyDark,
                                 fontFamily: 'Lora',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),
@@ -249,7 +261,7 @@ class _MyDialogState extends State<Dialog> {
                           child: Text(
                             "CONFIRMER",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontFamily: 'Lora',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),
@@ -268,7 +280,16 @@ class _MyDialogState extends State<Dialog> {
     final imageSource = await showDialog<ImageSource>(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text("Veuillez choisir la source de l'image"),
+              
+              title: Text(
+                "Veuillez choisir la source de l'image",
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: Color(0xff686868),
+                ),
+              ),
               actions: <Widget>[
                 MaterialButton(
                   child: Text("Camera"),

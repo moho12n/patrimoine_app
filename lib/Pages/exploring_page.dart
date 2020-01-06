@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
 import 'package:patrimoine_app/theme.dart';
 import 'map_main.dart';
+
 class ExploringMap extends StatefulWidget {
   ExploringMap({
     Key key,
@@ -24,7 +25,6 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
 
   final Set<Marker> _markers = prefix0.markers;
 
-  
   LatLng _lastMapPosition = _center;
 
   MapType _currentMapType = MapType.normal;
@@ -41,10 +41,9 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
           mapType: _currentMapType,
           markers: _markers,
           onCameraMove: _onCameraMove,
-          
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 118,horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 118, horizontal: 16),
           child: Align(
             alignment: Alignment.topRight,
             child: Column(
@@ -52,7 +51,7 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
                 FloatingActionButton(
                   onPressed: _onMapTypeButtonPressed,
                   materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.green,
+                  backgroundColor: ThemeColors.Green,
                   child: const Icon(Icons.map, size: 36.0),
                 ),
                 SizedBox(height: 16.0),
@@ -104,7 +103,6 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
             ),
           ),
         ),
-        
       ],
     );
   }

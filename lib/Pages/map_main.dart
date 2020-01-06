@@ -41,19 +41,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
   MapType _currentMapType = MapType.normal;
   @override
   Widget build(BuildContext context) {
-    return
-        /*Container(alignment: Alignment.center,child: RaisedButton(
-          onPressed: () async {
-            // show input autocomplete with selected mode
-            // then get the Prediction selected
-            Prediction p = await PlacesAutocomplete.show(
-                context: context, apiKey: kGoogleApiKey);
-            await displayPrediction(p,scaffoldkey.currentState);
-          },
-          child: Text('Find address'),
-        ),);
-    */
-        Stack(
+    return Stack(
       children: <Widget>[
         GoogleMap(
           onMapCreated: _onMapCreated,
@@ -69,6 +57,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
           child: Icon(
             Icons.add_location,
             size: 36.0,
+            color: ThemeColors.Green,
           ),
         ),
         Padding(
@@ -81,7 +70,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
                   heroTag: "floatActbtn1",
                   onPressed: _onMapTypeButtonPressed,
                   materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.green,
+                  backgroundColor: ThemeColors.Green,
                   child: const Icon(Icons.map, size: 36.0),
                 ),
                 SizedBox(height: 16.0),
@@ -89,7 +78,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
                   heroTag: "floatActbtn2",
                   onPressed: _onAddMarkerButtonPressed,
                   materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: Colors.green,
+                  backgroundColor: ThemeColors.Green,
                   child: const Icon(Icons.add_location, size: 36.0),
                 ),
               ],
