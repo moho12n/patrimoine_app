@@ -122,7 +122,8 @@ class _MyStatefulWidgetState extends State<MainMap> {
                 Expanded(
                   flex: 7,
                   child: FlatButton(
-                    padding: EdgeInsets.only(right: MediaQuery.of(context).size.width - 200),
+                    padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width - 200),
                     onPressed: () async {
                       // show input autocomplete with selected mode
                       // then get the Prediction selected
@@ -165,14 +166,15 @@ class _MyStatefulWidgetState extends State<MainMap> {
       final lat = detail.result.geometry.location.lat;
       final lng = detail.result.geometry.location.lng;
       _center = LatLng(lat.toDouble(), lng.toDouble());
-      if(lat != null && lng != null) mapController.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(
-            lat,
-            lng,
+      if (lat != null && lng != null)
+        mapController.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              lat,
+              lng,
+            ),
           ),
-        ),
-      );
+        );
     }
   }
 
@@ -189,11 +191,11 @@ class _MyStatefulWidgetState extends State<MainMap> {
     setState(() {
       markers.add(Marker(
         onTap: () {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return prefix0.Dialog();
-              });
+          Navigator.of(context).push(
+            PageRouteBuilder(
+                pageBuilder: (context, _, __) => prefix0.Dialog(),
+                opaque: false),
+          );
         },
         // This marker id can be anything that uniquely identifies each marker.
         markerId: MarkerId(_lastMapPosition.toString()),

@@ -41,18 +41,20 @@ class MyPopupSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 40, sigmaY: 20),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xfffcf4ed),
-            backgroundBlendMode: BlendMode.overlay,
-          ),
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
           child: Container(
-            color: isSurfacePainted ? Colors.white : null,
-            child: child,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              backgroundBlendMode: BlendMode.overlay,
+            ),
+            child: Container(
+              color: Color(0xffffffff).withOpacity(0.90),
+              child: child,
+            ),
           ),
         ),
       ),
@@ -88,7 +90,11 @@ void showOnTapMessage(BuildContext context) {
           ),
         )
       ])));
-  showDialog(context: context, child: alert);
+  /*showDialog(context: context, child: alert,);
+  Navigator.of(context).push(
+    PageRouteBuilder(
+        pageBuilder: (context, _, __) => alert, opaque: false),
+  );*/
 }
 
 //---------
@@ -123,6 +129,7 @@ class _MyDialogState extends State<Dialog> {
           child: Material(
               type: MaterialType.transparency,
               child: AnimatedContainer(
+                //color: Colors.white10,
                 curve: Curves.ease,
                 duration: Duration(
                   milliseconds: 400,
@@ -172,8 +179,15 @@ class _MyDialogState extends State<Dialog> {
                         textCapitalization: TextCapitalization.sentences,
                         maxLines: 4,
                         decoration: InputDecoration(
-                            labelText: "Partager votre avis",
-                            hintText: "J'ai visité...",
+                            labelText:
+                                "Que veux-tu Partager à propos de ce lieu",
+                            labelStyle: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                              color: Color(0xff686868),
+                            ),
+                            hintText: "...",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(14)))),
                     SizedBox(
@@ -231,12 +245,11 @@ class _MyDialogState extends State<Dialog> {
                               context,
                             );
                           },
-                          textColor: Colors.white,
-                          color: Colors.green,
+                          color: Color(0xff05A187),
                           child: Text(
                             "CONFIRMER",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontFamily: 'Lora',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),

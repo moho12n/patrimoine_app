@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patrimoine_app/theme.dart';
 import '../UI/elements.dart';
-
+import './map_main.dart';
 class SignUpFirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

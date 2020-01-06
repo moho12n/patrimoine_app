@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:patrimoine_app/theme.dart';
 import '../Pages/sign_up.dart';
-
+import '../Pages/map_main.dart';
+import '../main.dart';
 //***************************************Buttons */
 class ButtonIdentifier extends StatelessWidget {
   @override
@@ -63,7 +64,7 @@ class ButtonIdentifier2 extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SignUpSecondPage()),
+              MaterialPageRoute(builder: (context) => MyApp()),
             );
           },
           child: Text(

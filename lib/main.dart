@@ -7,7 +7,7 @@ import 'example.dart';
 import 'theme.dart';
 
 void main() => runApp(MaterialApp(
-      home: SignUpFirstPage(),
+      home: MyApp(),
       theme: ThemeData(unselectedWidgetColor: Colors.white70),
     ));
 /*void main() {
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.green,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white54,
-        onTap: onTabTapped, // new
+        onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
@@ -64,3 +64,4 @@ class _MyAppState extends State<MyApp> {
     });
   }
 }
+
