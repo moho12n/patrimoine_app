@@ -6,13 +6,13 @@ import 'Pages/exploring_page.dart';
 import 'example.dart';
 import 'theme.dart';
 
-/*void main() => runApp(MaterialApp(
+void main() => runApp(MaterialApp(
       home: MyApp(),
       theme: ThemeData(unselectedWidgetColor: Colors.white70),
     ));
-*/void main() {
+/*void main() {
   runApp(RoutesWidget());
-}
+}*/
 BuildContext contextGlobal;
 final scaffoldkey = GlobalKey<ScaffoldState>();
 
