@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
 import 'package:patrimoine_app/theme.dart';
 import 'map_main.dart';
+import './map_main.dart';
 
 class ExploringMap extends StatefulWidget {
   ExploringMap({
@@ -30,6 +31,7 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
   MapType _currentMapType = MapType.normal;
   @override
   Widget build(BuildContext context) {
+    prefix0.myContext = context;
     return Stack(
       children: <Widget>[
         GoogleMap(

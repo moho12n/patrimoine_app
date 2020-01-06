@@ -1,9 +1,7 @@
-import 'package:patrimoine_app/Pages/sign_up.dart';
-
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
-import 'example.dart';
+
 import 'theme.dart';
 
 void main() => runApp(MaterialApp(
@@ -33,11 +31,6 @@ class _MyAppState extends State<MyApp> {
         child: _children[_currentIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        /*type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: ThemeColors.Green,
-        unselectedItemColor: Colors.green,        
-        */
         backgroundColor: Colors.white,
         selectedItemColor: ThemeColors.Green,
         unselectedItemColor: Colors.black38,
@@ -70,5 +63,9 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  int getCurrentIndex() {
+    return _currentIndex;
   }
 }

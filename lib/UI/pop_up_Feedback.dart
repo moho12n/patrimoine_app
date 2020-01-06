@@ -171,7 +171,7 @@ class _MyDialogState extends State<Dialog> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         StarRating(
-                          size: 35.0,
+                          size: 26.0,
                           rating: rating,
                           color: Colors.orange,
                           borderColor: Colors.grey,
@@ -280,7 +280,6 @@ class _MyDialogState extends State<Dialog> {
     final imageSource = await showDialog<ImageSource>(
         context: context,
         builder: (context) => AlertDialog(
-              
               title: Text(
                 "Veuillez choisir la source de l'image",
                 style: TextStyle(

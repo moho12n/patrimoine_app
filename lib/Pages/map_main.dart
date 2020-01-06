@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,8 +12,8 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geocoder/geocoder.dart';
 import '../main.dart';
 
-final Set<Marker> markers = {};
-
+Set<Marker> markers = {};
+BuildContext myContext;
 //****/
 const kGoogleApiKey = "AIzaSyDgID5BLQ78GOQ9AMYPwvfk6CRffTCyGCI";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -41,6 +42,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
   MapType _currentMapType = MapType.normal;
   @override
   Widget build(BuildContext context) {
+    myContext = context;
     return Stack(
       children: <Widget>[
         GoogleMap(
@@ -176,15 +178,11 @@ class _MyStatefulWidgetState extends State<MainMap> {
     });
   }
 
-  void _onAddMarkerButtonPressed() {
+  _onAddMarkerButtonPressed() {
     setState(() {
       markers.add(Marker(
         onTap: () {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-                pageBuilder: (context, _, __) => prefix0.Dialog(),
-                opaque: false),
-          );
+          showPopUp(myContext);
         },
         // This marker id can be anything that uniquely identifies each marker.
         markerId: MarkerId(_lastMapPosition.toString()),
@@ -213,5 +211,13 @@ class _MyStatefulWidgetState extends State<MainMap> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     _controller.complete(controller);
+  }
+
+  showPopUp(BuildContext context2) {
+    Navigator.of(context2).push(
+      PageRouteBuilder(
+           
+           pageBuilder: (context2, _, __) => prefix0.Dialog(), opaque: false),
+    );
   }
 }
