@@ -9,6 +9,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:patrimoine_app/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import './pop_up_ViewImage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 //------------------ POP UP --------------------//
 
 class MyDialog2 extends StatelessWidget {
@@ -354,25 +356,24 @@ class _ImageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      padding: EdgeInsets.all(0),
-      onPressed: () {},
-      child: Card(
-        color: const Color(0x00000000),
-        elevation: 3.0,
-        child: GestureDetector(
-          onTap: () {
-            print("hello");
-          },
-          child: Container(
-              decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(gridImage),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.all(const Radius.circular(10.0)),
-          )),
-        ),
+    return Card(
+      color: const Color(0x00000000),
+      elevation: 3.0,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+                pageBuilder: (context, _, __) => Dialog3(), opaque: false),
+          );
+        },
+        child: Container(
+            decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(gridImage),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: BorderRadius.all(const Radius.circular(10.0)),
+        )),
       ),
     );
   }

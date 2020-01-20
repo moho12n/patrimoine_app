@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:patrimoine_app/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 //------------------ POP UP --------------------//
 
 class MyDialog3 extends StatelessWidget {
@@ -103,7 +104,74 @@ class _MyDialogState extends State<Dialog3> {
                 height: MediaQuery.of(context).size.height,
                 padding: const EdgeInsets.all(0),
                 alignment: childAlignment,
-                child: Text(""),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 54,
+                    ),
+                    Expanded(
+                      flex: 0,
+                      child: Row(
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(Icons.arrow_back),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(""),
+                      flex: 10,
+                    ),
+                    Divider(),
+                    SizedBox(height: 10,),
+                    Expanded(
+                      flex: 0,
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 40),
+                              child: Text(
+                                "YoucefBtld",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: Color(0xff757575),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 40),
+                              child: Text(
+                                "Les moulures de la galerie extérieure de la Grande Poste.",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 13,
+                                  color: Color(0xff757575),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               )));
     });
   }

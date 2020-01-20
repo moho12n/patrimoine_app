@@ -1,18 +1,18 @@
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
-
 import 'theme.dart';
+import 'Pages/sign_up.dart';
 
 void main() => runApp(MaterialApp(
-      home: MyApp(),
+      home: SignUpFirstPage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
 /*void main() {
   runApp(RoutesWidget());
-}*/
-
+}
+*/
 //********declaration */
 BuildContext contextGlobal;
 final scaffoldkey = GlobalKey<ScaffoldState>();
