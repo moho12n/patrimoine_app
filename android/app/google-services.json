@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "741667799615",
+    "firebase_url": "https://tourathi.firebaseio.com",
+    "project_id": "tourathi",
+    "storage_bucket": "tourathi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741667799615:android:24d5a0a07bd93a37942e8a",
+        "android_client_info": {
+          "package_name": "com.example.firebase_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741667799615-7mq15cf8ok1k6qb24undfv2nvfftaq8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlddgUkaIUQILG6SGTo0CI79msOeSyPYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741667799615-7mq15cf8ok1k6qb24undfv2nvfftaq8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741667799615:android:a16d2a050477e33a942e8a",
+        "android_client_info": {
+          "package_name": "com.selma.patrimoine_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741667799615-7mq15cf8ok1k6qb24undfv2nvfftaq8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlddgUkaIUQILG6SGTo0CI79msOeSyPYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741667799615-7mq15cf8ok1k6qb24undfv2nvfftaq8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

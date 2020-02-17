@@ -27,7 +27,7 @@ class User {
         gender: json["gender"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {    
         "name": name,
         "age": age,
         "adress": adress,

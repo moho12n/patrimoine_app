@@ -1,11 +1,14 @@
+import 'package:patrimoine_app/UI/databasePage.dart';
+
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
 import 'theme.dart';
 import 'Pages/sign_up.dart';
-
+import 'package:firebase_database/firebase_database.dart';
+  
 void main() => runApp(MaterialApp(
-      home: SignUpFirstPage(),
+      home: DatabaseClass(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
