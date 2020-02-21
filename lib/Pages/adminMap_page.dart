@@ -11,16 +11,17 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import '../main.dart';
 import '../UI/pop_up_Avis.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-Set<Marker> markers = {};
+Set<Marker> adminMarkers = {};
 BuildContext myContext;
 //****/
 const kGoogleApiKey = "AIzaSyDgID5BLQ78GOQ9AMYPwvfk6CRffTCyGCI";
 GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 //****/
 
-class MainMap extends StatefulWidget {
-  MainMap({
+class AdminMap extends StatefulWidget {
+  AdminMap({
     Key key,
     this.parameter,
   }) : super(key: key);
@@ -28,10 +29,13 @@ class MainMap extends StatefulWidget {
   final parameter;
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _MyAdminMapWidgetState createState() => _MyAdminMapWidgetState();
+
 }
 
-class _MyStatefulWidgetState extends State<MainMap> {
+class _MyAdminMapWidgetState extends State<AdminMap> {
+  
+  
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController mapController;
 
@@ -52,15 +56,8 @@ class _MyStatefulWidgetState extends State<MainMap> {
             zoom: 11.0,
           ),
           mapType: _currentMapType,
-          markers: markers,
+          markers: adminMarkers,
           onCameraMove: _onCameraMove,
-        ),
-        Center(
-          child: Icon(
-            Icons.add_location,
-            size: 36.0,
-            color: ThemeColors.Green,
-          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 110.0, horizontal: 16),
@@ -76,13 +73,6 @@ class _MyStatefulWidgetState extends State<MainMap> {
                   child: const Icon(Icons.map, size: 36.0),
                 ),
                 SizedBox(height: 16.0),
-                FloatingActionButton(
-                  heroTag: "floatActbtn2",
-                  onPressed: _onAddMarkerButtonPressed,
-                  materialTapTargetSize: MaterialTapTargetSize.padded,
-                  backgroundColor: ThemeColors.Green,
-                  child: const Icon(Icons.add_location, size: 36.0),
-                ),
               ],
             ),
           ),
@@ -172,35 +162,10 @@ class _MyStatefulWidgetState extends State<MainMap> {
   //****** */
   void _onMapTypeButtonPressed() {
     setState(() {
+      print(adminMarkers.toString());
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
           : MapType.normal;
-    });
-  }
-
-  _onAddMarkerButtonPressed() {
-    setState(() {
-      markers.add(Marker(
-        onTap: () {
-          showPopUp(myContext);
-        },
-        // This marker id can be anything that uniquely identifies each marker.
-        markerId: MarkerId(_lastMapPosition.toString()),
-        position: _lastMapPosition,
-        infoWindow: InfoWindow(
-            title: 'Donner un feedback',
-            onTap: () {
-              Fluttertoast.showToast(
-                  msg: "Veuillez remplir les informations suivantes",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 12.0);
-            }),
-        icon: BitmapDescriptor.defaultMarker,
-      ));
     });
   }
 
