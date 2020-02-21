@@ -213,7 +213,9 @@ class _MyStatefulWidgetState extends State<MainMap> {
     _controller.complete(controller);
   }
 
-  showPopUp(BuildContext context2) {
+  
+}
+void showPopUp(BuildContext context2) {
     if (indexGlobal == 1) {
       Navigator.of(context2).push(
         PageRouteBuilder(
@@ -233,4 +235,3 @@ class _MyStatefulWidgetState extends State<MainMap> {
       );
     }
   }
-}

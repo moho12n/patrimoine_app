@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'Pages/map_main.dart';
@@ -24,51 +26,14 @@ final scaffoldkey = GlobalKey<ScaffoldState>();
 int indexGlobal;
 
 class MyApp extends StatefulWidget {
-  
   @override
   _MyAppState createState() => _MyAppState();
-
-  
 }
 
 class _MyAppState extends State<MyApp> {
-
   
-  @override
-  void initState() {
-
-    Firestore.instance.collection('markers')
-  .snapshots()
-  .listen((QuerySnapshot querySnapshot){
-    querySnapshot.documents.forEach((document) => print(document));
-  }
-);
-    _getThingsOnStartup().then((value){
-      print('Async done');
-    });
-    super.initState();
-  }
-  Future _getThingsOnStartup() async {
-    
-    return StreamBuilder(
-      stream: Firestore.instance.collection('markers').snapshots(),
-      builder: (context, snapshot) {
-        print("hey");
-        if (!snapshot.hasData) print("there is nothing");
-        print(snapshot.data.documents.length.toString());
-        for (int i = 0; i < snapshot.data.documents.length; i++) {
-          print(snapshot.data.documents[i]['coords']);
-          adminMarkers.add(Marker(
-            markerId: MarkerId(snapshot.data.hashCode.toString()),            
-            position: LatLng(snapshot.data.documents[i]['coords'].latitude,
-                  snapshot.data.documents[i]['coords'].longitude),
-             ));
-        }
-  });
-  }
-
   int _currentIndex = 0;
-  final List<Widget> _children = [AdminMap(),ExploringMap(), MainMap()];
+  final List<Widget> _children = [AdminMap(), ExploringMap(), MainMap()];
 
   @override
   Widget build(BuildContext context) {
