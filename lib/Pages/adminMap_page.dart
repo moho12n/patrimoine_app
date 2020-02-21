@@ -12,7 +12,7 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import '../main.dart';
 import '../UI/pop_up_Avis.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:patrimoine_app/UI/pop_up_AdminAvis.dart';
 Set<Marker> adminMarkers = {};
 BuildContext myAdminContext;
 //****/
@@ -36,25 +36,7 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
   @override
   void initState() {
     super.initState();
-    /*
-     Firestore.instance
-        .collection('markers')
-        .snapshots()
-        .listen((QuerySnapshot querySnapshot) {
-      querySnapshot.documents.forEach((document) {
-        adminMarkers.add(Marker(
-            onTap: () {
-              Navigator.of(myAdminContext).push(
-                PageRouteBuilder(
-                    pageBuilder: (myAdminContext, _, __) => Dialog2(),
-                    opaque: false),
-              );
-            },
-            markerId: MarkerId(document.data.hashCode.toString()),
-            position: LatLng(double.parse(document.data['latitude'].toString()),
-                double.parse(document.data['longitude'].toString()))));
-      });
-    }); */
+    
   }
 
   Completer<GoogleMapController> _controller = Completer();
@@ -81,9 +63,10 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             adminMarkers.add(Marker(
                                 
                 onTap: () {
+                  
                   Navigator.of(myAdminContext).push(
                     PageRouteBuilder(
-                        pageBuilder: (myAdminContext, _, __) => Dialog2(),
+                        pageBuilder: (myAdminContext, _, __) => MyAdminDialog2(title: document.data['title'],subTitle: document.data['subTitle'],description: document.data['description'],type: document.data['type'],),
                         opaque: false),
                   );
                 },
@@ -228,24 +211,5 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
     _controller.complete(controller);
   }
 
-  showPopUp(BuildContext context2) {
-    if (indexGlobal == 1) {
-      Navigator.of(context2).push(
-        PageRouteBuilder(
-            pageBuilder: (context2, _, __) => prefix0.Dialog(), opaque: false),
-      );
-    }
-    if (indexGlobal == 0) {
-      Navigator.of(context2).push(
-        PageRouteBuilder(
-            pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
-      );
-    }
-    if (indexGlobal == 2) {
-      Navigator.of(context2).push(
-        PageRouteBuilder(
-            pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
-      );
-    }
-  }
+  
 }

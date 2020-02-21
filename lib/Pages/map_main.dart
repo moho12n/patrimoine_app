@@ -216,19 +216,13 @@ class _MyStatefulWidgetState extends State<MainMap> {
   
 }
 void showPopUp(BuildContext context2) {
-    if (indexGlobal == 1) {
+    if (indexGlobal == 2) {
       Navigator.of(context2).push(
         PageRouteBuilder(
             pageBuilder: (context2, _, __) => prefix0.Dialog(), opaque: false),
       );
     }
-    if (indexGlobal == 0) {
-      Navigator.of(context2).push(
-        PageRouteBuilder(
-            pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
-      );
-    }
-    if (indexGlobal == 2) {
+    if (indexGlobal == 1) {
       Navigator.of(context2).push(
         PageRouteBuilder(
             pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
