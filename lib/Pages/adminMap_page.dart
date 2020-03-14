@@ -41,23 +41,9 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
   @override
   void initState() {
     super.initState();
-    setCustomMapPin();
   }
 
-  void setCustomMapPin() async {
-    markerIcon = await getBytesFromAsset('assets/icons/Groupe 51.png', 6000);
-    pinLocationIcon = await BitmapDescriptor.fromBytes(markerIcon);
-  }
-
-  Future<Uint8List> getBytesFromAsset(String path, int width) async {
-    ByteData data = await rootBundle.load(path);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
-        .buffer
-        .asUint8List();
-  }
+ 
 
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController mapController;
@@ -81,7 +67,8 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             .listen((QuerySnapshot querySnapshot) {
           querySnapshot.documents.forEach((document) {
             adminMarkers.add(Marker(
-                icon: pinLocationIcon,
+              draggable: false,
+                icon: BitmapDescriptor.fromAsset("assets/icons/monument3.png"),
                 onTap: () {
                   Navigator.of(myAdminContext).push(
                     PageRouteBuilder(
