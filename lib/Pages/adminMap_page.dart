@@ -118,63 +118,59 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 48,
-              ),
-              child: Container(
-                height: 54,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 12,
-                        offset: Offset(0, 12))
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Expanded(
-                      flex: 7,
-                      child: FlatButton(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width - 200),
-                        onPressed: () async {
-                          // show input autocomplete with selected mode
-                          // then get the Prediction selected
-                          Prediction p = await PlacesAutocomplete.show(
-                              context: context, apiKey: kGoogleApiKey);
-                          await displayPrediction(p, scaffoldkey.currentState);
-                        },
-                        child: Text(
-                          "Rechercher",
-                          style: TextStyle(
-                              color: ThemeColors.greyBG,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Image.asset(
-                        'assets/icons/Search.png',
-                        height: 22,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 48,
+            vertical: 48,
+          ),
+          child: Container(
+            height: 48,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 12,
+                    offset: Offset(0, 12))
+              ],
             ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                
+                Expanded(
+                  flex: 7,
+                  child: FlatButton(
+                    //padding: EdgeInsets.only(
+                      //  right: MediaQuery.of(context).size.width - 200),
+                    onPressed: () async {
+                      Prediction p = await PlacesAutocomplete.show(
+                          context: context, apiKey: kGoogleApiKey);
+                      await displayPrediction(p, scaffoldkey.currentState);
+                    },
+                    child: Text(
+                      "Chercher un lieu",
+                      style: TextStyle(
+                          color: ThemeColors.greyBG,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Image.asset(
+                    'assets/icons/Search.png',
+                    height: 22,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
           ],
         );
       },

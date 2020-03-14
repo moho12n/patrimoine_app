@@ -12,7 +12,7 @@ import 'Pages/adminMap_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(MaterialApp(
-      home: MyApp(),
+      home: SignUpFirstPage(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
