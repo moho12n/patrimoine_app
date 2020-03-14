@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:patrimoine_app/theme.dart';
 import '../UI/elements.dart';
 import './map_main.dart';
+
 class SignUpFirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ThemeColors.Green,
         body: Stack(children: <Widget>[
-          Center(
-              child: Image.asset(
-            'assets/images/name.png',
-          )),
           Container(
-            margin: EdgeInsets.all(00),
-            padding: EdgeInsets.only(top: 80),
-            alignment: Alignment.topCenter,
+            margin: EdgeInsets.only(bottom: 130),
+            //padding: EdgeInsets.only(top: 80),
+            alignment: Alignment.center,
             child: Image.asset(
-              'assets/images/background.png',
+              'assets/images/name2.png',
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.fill,
             ),
@@ -41,7 +38,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
         backgroundColor: ThemeColors.Green,
         body: Stack(
           children: <Widget>[
-            Container(
+            /*Container(
               padding: EdgeInsets.only(bottom: 80),
               alignment: Alignment.bottomCenter,
               child: Image.asset(
@@ -49,7 +46,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.fill,
               ),
-            ),
+            ),*/
             Padding(
               padding: EdgeInsets.all(40),
               child: Column(

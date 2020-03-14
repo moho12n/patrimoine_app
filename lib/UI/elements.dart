@@ -3,12 +3,13 @@ import 'package:patrimoine_app/theme.dart';
 import '../Pages/sign_up.dart';
 import '../Pages/map_main.dart';
 import '../main.dart';
+
 //***************************************Buttons */
 class ButtonIdentifier extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 136,
+      width: MediaQuery.of(context).size.width - 187,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -33,9 +34,7 @@ class ButtonIdentifier extends StatelessWidget {
           child: Text(
             "S'identifier",
             style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 12),
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12),
           )),
     );
   }
@@ -45,7 +44,7 @@ class ButtonIdentifier2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 286,
+      width: MediaQuery.of(context).size.width-75,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -70,9 +69,7 @@ class ButtonIdentifier2 extends StatelessWidget {
           child: Text(
             "S'identifier",
             style: TextStyle(
-                color:  Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 12),
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12),
           )),
     );
   }
@@ -88,37 +85,45 @@ class _RadioButtonState extends State<RadioButton> {
   int _radioValue1 = -1;
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-      SizedBox(
-        width: 25,
-      ),
-      Radio(
-        activeColor: Colors.white,
-        value: 0,
-        groupValue: _radioValue1,
-        onChanged: _handleRadioValueChange1,
-      ),
-      Text(
-        'Homme',
-        style: TextStyle(fontSize: 14.0, color: Colors.white),
-      ),
-      SizedBox(
-        width: 40,
-      ),
-      Radio(
-        activeColor: Colors.white,
-        value: 1,
-        groupValue: _radioValue1,
-        onChanged: _handleRadioValueChange1,
-      ),
-      Text(
-        'Femme',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 14.0,
+    return Theme(
+      data: ThemeData.dark(),
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+        SizedBox(
+          width: 25,
         ),
-      ),
-    ]);
+        Radio(
+
+          focusColor: Colors.white,
+          hoverColor: Colors.white,
+          activeColor: Colors.white,
+          value: 0,
+          groupValue: _radioValue1,
+          onChanged: _handleRadioValueChange1,
+        ),
+        Text(
+          'Homme',
+          style: TextStyle(fontSize: 14.0, color: Colors.white),
+        ),
+        SizedBox(
+          width: 40,
+        ),
+        Radio(
+          hoverColor: Colors.white,
+          focusColor: Colors.white,
+          activeColor: Colors.white,
+          value: 1,
+          groupValue: _radioValue1,
+          onChanged: _handleRadioValueChange1,
+        ),
+        Text(
+          'Femme',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.0,
+          ),
+        ),
+      ]),
+    );
   }
 
   void _handleRadioValueChange1(int value) {

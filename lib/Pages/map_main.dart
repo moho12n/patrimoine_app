@@ -63,7 +63,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 110.0, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 118.0, horizontal: 16),
           child: Align(
             alignment: Alignment.topRight,
             child: Column(
@@ -116,15 +116,13 @@ class _MyStatefulWidgetState extends State<MainMap> {
                     padding: EdgeInsets.only(
                         right: MediaQuery.of(context).size.width - 200),
                     onPressed: () async {
-                      // show input autocomplete with selected mode
-                      // then get the Prediction selected
                       Prediction p = await PlacesAutocomplete.show(
                           context: context, apiKey: kGoogleApiKey);
                       await displayPrediction(p, scaffoldkey.currentState);
                     },
                     child: Text(
                       "Rechercher",
-                      style: new TextStyle(
+                      style: TextStyle(
                           color: ThemeColors.greyBG,
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w500,

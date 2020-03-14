@@ -5,6 +5,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
 import 'package:patrimoine_app/theme.dart';
 
+import '../theme.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import '../main.dart';
+
+//****/
+const kGoogleApiKey = "AIzaSyDgID5BLQ78GOQ9AMYPwvfk6CRffTCyGCI";
+GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+
+//****/
 class ExploringMap extends StatefulWidget {
   ExploringMap({
     Key key,
@@ -19,8 +29,9 @@ class ExploringMap extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<ExploringMap> {
   Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController mapController;
 
-  static const LatLng _center = const LatLng(36.737232, 3.086472);
+  static LatLng _center = const LatLng(36.737232, 3.086472);
 
   final Set<Marker> _markers = prefix0.markers;
 
@@ -77,27 +88,38 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
               ],
             ),
             child: Row(
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(
-                  width: 18,
-                ),
-                Text(
-                  "Rechercher",
-                  style: new TextStyle(
-                      color: ThemeColors.greyBG,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18),
+                  width: 8,
                 ),
                 Expanded(
-                  child: SizedBox(),
+                  flex: 7,
+                  child: FlatButton(
+                    padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width - 200),
+                    onPressed: () async {
+                      Prediction p = await PlacesAutocomplete.show(
+                          context: context, apiKey: kGoogleApiKey);
+                      await displayPrediction(p, scaffoldkey.currentState);
+                    },
+                    child: Text(
+                      "Rechercher",
+                      style: TextStyle(
+                          color: ThemeColors.greyBG,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
                 ),
-                /*Image.asset(
-                  'assets/icons/Search.png',
-                  height: 22,
-                ),*/
-                SizedBox(
-                  width: 18,
+                Expanded(
+                  flex: 1,
+                  child: Image.asset(
+                    'assets/icons/Search.png',
+                    height: 22,
+                  ),
                 )
               ],
             ),
@@ -105,6 +127,27 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
         ),
       ],
     );
+  }
+/****** */
+
+  Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
+    if (p != null) {
+      // get detail (lat/lng)
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId);
+      final lat = detail.result.geometry.location.lat;
+      final lng = detail.result.geometry.location.lng;
+      _center = LatLng(lat.toDouble(), lng.toDouble());
+      if (lat != null && lng != null)
+        mapController.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              lat,
+              lng,
+            ),
+          ),
+        );
+    }
   }
 
   void _onMapTypeButtonPressed() {

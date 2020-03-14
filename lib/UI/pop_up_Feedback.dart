@@ -20,7 +20,8 @@ class MyDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: MediaQuery.of(context).size.width - 32,
+        width: MediaQuery.of(context).size.width - 70,
+        height: 340,
         child: MyPopupSurface(
           child: child,
         ),
@@ -143,35 +144,24 @@ class _MyDialogState extends State<Dialog> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      "Partagez votre Feedback ! ",
+                      "PARTAGE TON AVIS AVEC LES AUTRES !",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w600,
-                        fontSize: 25,
-                        letterSpacing: 1.0,
-                        color: Color(0xff686868),
+                        fontSize: 12,
+                        color: Color(0xff353535),
                       ),
                     ),
                     SizedBox(
                       height: 12.0,
                     ),
-                    Text(
-                      "Évalue le lieu ",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                        color: Color(0xff686868),
-                      ),
-                    ),
                     Row(
-                      mainAxisSize: MainAxisSize.max,
+                      //mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         StarRating(
-                          size: 26.0,
+                          size: 22.0,
                           rating: rating,
                           color: Colors.orange,
                           borderColor: Colors.grey,
@@ -188,15 +178,16 @@ class _MyDialogState extends State<Dialog> {
                       height: 10,
                     ),
                     TextField(
+                        textAlign: TextAlign.center,
                         textCapitalization: TextCapitalization.sentences,
                         maxLines: 4,
                         decoration: InputDecoration(
                             labelText:
-                                "Que veux-tu Partager à propos de ce lieu",
+                                "Que veux-tu dire à propos de ce lieu ? ",
                             labelStyle: TextStyle(
                               fontFamily: "Montserrat",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 11,
                               color: Color(0xff686868),
                             ),
                             hintText: "...",
@@ -205,7 +196,7 @@ class _MyDialogState extends State<Dialog> {
                     SizedBox(
                       height: 12.0,
                     ),
-                    OutlineButton(
+                    FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         onPressed: _pickImage,
@@ -219,52 +210,56 @@ class _MyDialogState extends State<Dialog> {
                       height: 12,
                     ),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        FlatButton(
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          padding: EdgeInsets.only(left: 23.0, right: 23.0),
-                          onPressed: () {
-                            Navigator.pop(
-                              context,
-                            );
-                          },
-                          textColor: Colors.white,
-                          color: Colors.transparent,
-                          child: Text(
-                            "ANNULER",
-                            style: TextStyle(
-                                color: ThemeColors.greyDark,
-                                fontFamily: 'Lora',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                        Padding(
+                          padding: EdgeInsets.only(right: 0, left: 10),
+                          //flex: 2,
+                          child: FlatButton(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            padding: EdgeInsets.only(left: 23.0, right: 23.0),
+                            onPressed: () {
+                              Navigator.pop(
+                                context,
+                              );
+                            },
+                            textColor: Colors.white,
+                            color: Colors.transparent,
+                            child: Text(
+                              "ANNULER",
+                              style: TextStyle(
+                                  color: ThemeColors.greyDark,
+                                  fontFamily: 'Lora',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11),
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          width: 100,
-                        ),
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          onPressed: () {
-                            Navigator.pop(
-                              context,
-                            );
-                          },
-                          color: Color(0xff05A187),
-                          child: Text(
-                            "CONFIRMER",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Lora',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
+                        Padding(
+                          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width  - 155 -168),
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0)),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            onPressed: () {
+                              Navigator.pop(
+                                context,
+                              );
+                            },
+                            color: Color(0xff05A187),
+                            child: Text(
+                              "CONFIRMER",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Lora',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11),
+                            ),
                           ),
                         ),
                       ],

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:patrimoine_app/UI/pop_up_Feedback.dart' as prefix0;
@@ -13,6 +15,7 @@ import '../main.dart';
 import '../UI/pop_up_Avis.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:patrimoine_app/UI/pop_up_AdminAvis.dart';
+
 Set<Marker> adminMarkers = {};
 BuildContext myAdminContext;
 //****/
@@ -33,10 +36,27 @@ class AdminMap extends StatefulWidget {
 }
 
 class _MyAdminMapWidgetState extends State<AdminMap> {
+  BitmapDescriptor pinLocationIcon;
+  Uint8List markerIcon;
   @override
   void initState() {
     super.initState();
-    
+    setCustomMapPin();
+  }
+
+  void setCustomMapPin() async {
+    markerIcon = await getBytesFromAsset('assets/icons/Groupe 51.png', 6000);
+    pinLocationIcon = await BitmapDescriptor.fromBytes(markerIcon);
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
   }
 
   Completer<GoogleMapController> _controller = Completer();
@@ -51,7 +71,7 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
   Widget build(BuildContext context) {
     myAdminContext = context;
     //****** */
-    
+
     return StreamBuilder(
       stream: Firestore.instance.collection('markers').snapshots(),
       builder: (context, snapshot) {
@@ -61,12 +81,16 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             .listen((QuerySnapshot querySnapshot) {
           querySnapshot.documents.forEach((document) {
             adminMarkers.add(Marker(
-                                
+                icon: pinLocationIcon,
                 onTap: () {
-                  
                   Navigator.of(myAdminContext).push(
                     PageRouteBuilder(
-                        pageBuilder: (myAdminContext, _, __) => MyAdminDialog2(title: document.data['title'],subTitle: document.data['subTitle'],description: document.data['description'],type: document.data['type'],),
+                        pageBuilder: (myAdminContext, _, __) => MyAdminDialog2(
+                              title: document.data['title'],
+                              subTitle: document.data['subTitle'],
+                              description: document.data['description'],
+                              type: document.data['type'],
+                            ),
                         opaque: false),
                   );
                 },
@@ -90,7 +114,7 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 110.0, horizontal: 16),
+                  const EdgeInsets.symmetric(vertical: 118.0, horizontal: 16),
               child: Align(
                 alignment: Alignment.topRight,
                 child: Column(
@@ -144,7 +168,7 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
                         },
                         child: Text(
                           "Rechercher",
-                          style: new TextStyle(
+                          style: TextStyle(
                               color: ThemeColors.greyBG,
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w500,
@@ -210,6 +234,4 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
     mapController = controller;
     _controller.complete(controller);
   }
-
-  
 }

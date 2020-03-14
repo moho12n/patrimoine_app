@@ -1,18 +1,18 @@
 import 'dart:ffi';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:patrimoine_app/Pages/sign_up.dart';
 
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
 import 'theme.dart';
-import 'dart:async';
 import 'Pages/adminMap_page.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(MaterialApp(
-      home: MyApp(),
+      home: MainMap(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(unselectedWidgetColor: Colors.black),
     ));
