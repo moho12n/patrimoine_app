@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:patrimoine_app/Models/User.dart';
+import 'package:patrimoine_app/State/UserOnline.dart';
 import 'package:patrimoine_app/theme.dart';
 import '../Pages/sign_up.dart';
 import '../Pages/map_main.dart';
 import '../main.dart';
+
+String gender;
 
 //***************************************Buttons */
 class ButtonIdentifier extends StatelessWidget {
@@ -44,7 +48,7 @@ class ButtonIdentifier2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width-75,
+      width: MediaQuery.of(context).size.width - 75,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
@@ -61,6 +65,14 @@ class ButtonIdentifier2 extends StatelessWidget {
             borderRadius: BorderRadius.circular(24.0),
           ),
           onPressed: () {
+            UserOnline.user = User(
+                name: nomUtilisateurController.text,
+                age: ageController.text,
+                adress: adressController.text,
+                gender: gender);
+            print(UserOnline.user.toString());
+            UserOnline.userIsOnline = true;
+            saveUser();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => MyApp()),
@@ -81,7 +93,6 @@ class RadioButton extends StatefulWidget {
 }
 
 class _RadioButtonState extends State<RadioButton> {
-  String gender;
   int _radioValue1 = -1;
   @override
   Widget build(BuildContext context) {
@@ -92,7 +103,6 @@ class _RadioButtonState extends State<RadioButton> {
           width: 25,
         ),
         Radio(
-
           focusColor: Colors.white,
           hoverColor: Colors.white,
           activeColor: Colors.white,
@@ -132,21 +142,28 @@ class _RadioButtonState extends State<RadioButton> {
 
       switch (_radioValue1) {
         case 0:
-          gender = "Femme";
+          gender = "Homme";
           break;
         case 1:
-          gender = "homme";
+          gender = "Femme";
           break;
       }
     });
   }
 }
 
+/** controllers **/
+
+TextEditingController nomUtilisateurController = TextEditingController();
+TextEditingController ageController = TextEditingController();
+TextEditingController adressController = TextEditingController();
+
 /********************* Text Fields */
 class TextFieldNomUtilisateur extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: nomUtilisateurController,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         enabledBorder: const UnderlineInputBorder(
@@ -170,6 +187,7 @@ class TextFieldAge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: ageController,
       keyboardType: TextInputType.number,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
@@ -194,6 +212,7 @@ class TextFieldLieuDeResidence extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: adressController,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(
         enabledBorder: const UnderlineInputBorder(

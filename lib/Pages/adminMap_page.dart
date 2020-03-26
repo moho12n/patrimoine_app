@@ -66,6 +66,9 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             .snapshots()
             .listen((QuerySnapshot querySnapshot) {
           querySnapshot.documents.forEach((document) {
+            print ("Title: ${document.data['title']}, Latitude = ${document.data['latitude']}, longitude = ${document.data['longitude']} ");
+            
+            if ((document.data['longitude'] != null) && (document.data['latitude'] != null )  ){
             adminMarkers.add(Marker(
               draggable: false,
                 icon: BitmapDescriptor.fromAsset("assets/icons/monument3.png"),
@@ -84,7 +87,7 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
                 markerId: MarkerId(document.data.hashCode.toString()),
                 position: LatLng(
                     double.tryParse(document.data['latitude'].toString()),
-                    double.tryParse(document.data['longitude'].toString()))));
+                    double.tryParse(document.data['longitude'].toString()))));}
           });
         });
         return Stack(

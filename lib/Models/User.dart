@@ -20,22 +20,22 @@ class User {
     return json.encode(dyn);
   }
 
-  factory User.fromJson(Map<String, dynamic> json) => new User(
+  factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],
         age: json["age"],
         adress: json["adress"],
         gender: json["gender"],
       );
 
-  Map<String, dynamic> toJson() => {    
+  Map<String, dynamic> toJson() => {
         "name": name,
         "age": age,
         "adress": adress,
         "gender": gender,
       };
-
-  /*factory User.fromDocument(DocumentSnapshot doc) {
-    return User.fromJson(doc.data);
-  }*/
-
+  @override
+  String toString() {
+    // TODO: implement toString
+    return '{name : "$name", adress : "$adress, gender: $gender", age: $age}';
+  }
 }

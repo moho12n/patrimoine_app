@@ -8,14 +8,25 @@ import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
 import 'theme.dart';
 import 'Pages/adminMap_page.dart';
-
+import 'State/UserOnline.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Models/User.dart';
 
-void main() => runApp(MaterialApp(
-      home: SignUpFirstPage(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(unselectedWidgetColor: Colors.black),
-    ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  UserOnline.user = User();
+  await getUser();
+  print("user is online " +
+      UserOnline.userIsOnline.toString() +
+      "user is : " +
+      UserOnline.user.toString());
+  runApp(MaterialApp(
+    home: UserOnline.userIsOnline ? MyApp() : SignUpFirstPage(),
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(unselectedWidgetColor: Colors.black),
+  ));
+}
+
 /*void main() {
   runApp(RoutesWidget());
 }
@@ -31,7 +42,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
   int _currentIndex = 0;
   final List<Widget> _children = [AdminMap(), ExploringMap(), MainMap()];
 
