@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:patrimoine_app/Models/marker.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
+import 'package:patrimoine_app/controllers/markersController.dart';
 import 'package:patrimoine_app/theme.dart';
 
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import '../main.dart';
+import 'map_main.dart';
 
 //****/
 const kGoogleApiKey = "AIzaSyDgID5BLQ78GOQ9AMYPwvfk6CRffTCyGCI";
@@ -38,6 +41,15 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
   LatLng _lastMapPosition = _center;
 
   MapType _currentMapType = MapType.normal;
+
+  @override
+  void initState() {
+    setState(() {
+      setMarkers();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     prefix0.myContext = context;
@@ -69,7 +81,8 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
               ],
             ),
           ),
-        ),Padding(
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 48,
             vertical: 48,
@@ -89,12 +102,11 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                
                 Expanded(
                   flex: 7,
                   child: FlatButton(
                     //padding: EdgeInsets.only(
-                      //  right: MediaQuery.of(context).size.width - 200),
+                    //  right: MediaQuery.of(context).size.width - 200),
                     onPressed: () async {
                       Prediction p = await PlacesAutocomplete.show(
                           context: context, apiKey: kGoogleApiKey);
@@ -161,5 +173,26 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+  }
+
+  void setMarkers() async {
+    var notes = List<MarkersModel>();
+    notes = await makeGetRequestMarkers();
+
+    notes.forEach((document) {
+      setState(() {
+        markers.add(Marker(
+          onTap: () {
+            showPopUp(myContext);
+          },
+          markerId: MarkerId(document.id.toString()),
+          position: LatLng(
+            double.tryParse(document.latitude),
+            double.tryParse(document.longitude),
+          ),
+          icon: BitmapDescriptor.defaultMarker,
+        ));
+      });
+    });
   }
 }

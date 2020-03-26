@@ -40,10 +40,9 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
   Uint8List markerIcon;
   @override
   void initState() {
+    
     super.initState();
   }
-
- 
 
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController mapController;
@@ -66,28 +65,33 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             .snapshots()
             .listen((QuerySnapshot querySnapshot) {
           querySnapshot.documents.forEach((document) {
-            print ("Title: ${document.data['title']}, Latitude = ${document.data['latitude']}, longitude = ${document.data['longitude']} ");
-            
-            if ((document.data['longitude'] != null) && (document.data['latitude'] != null )  ){
-            adminMarkers.add(Marker(
-              draggable: false,
-                icon: BitmapDescriptor.fromAsset("assets/icons/monument3.png"),
-                onTap: () {
-                  Navigator.of(myAdminContext).push(
-                    PageRouteBuilder(
-                        pageBuilder: (myAdminContext, _, __) => MyAdminDialog2(
-                              title: document.data['title'],
-                              subTitle: document.data['subTitle'],
-                              description: document.data['description'],
-                              type: document.data['type'],
-                            ),
-                        opaque: false),
-                  );
-                },
-                markerId: MarkerId(document.data.hashCode.toString()),
-                position: LatLng(
-                    double.tryParse(document.data['latitude'].toString()),
-                    double.tryParse(document.data['longitude'].toString()))));}
+            print(
+                "Title: ${document.data['title']}, Latitude = ${document.data['latitude']}, longitude = ${document.data['longitude']} ");
+
+            if ((document.data['longitude'] != null) &&
+                (document.data['latitude'] != null)) {
+              adminMarkers.add(Marker(
+                  draggable: false,
+                  icon:
+                      BitmapDescriptor.fromAsset("assets/icons/monument3.png"),
+                  onTap: () {
+                    Navigator.of(myAdminContext).push(
+                      PageRouteBuilder(
+                          pageBuilder: (myAdminContext, _, __) =>
+                              MyAdminDialog2(
+                                title: document.data['title'],
+                                subTitle: document.data['subTitle'],
+                                description: document.data['description'],
+                                type: document.data['type'],
+                              ),
+                          opaque: false),
+                    );
+                  },
+                  markerId: MarkerId(document.data.hashCode.toString()),
+                  position: LatLng(
+                      double.tryParse(document.data['latitude'].toString()),
+                      double.tryParse(document.data['longitude'].toString()))));
+            }
           });
         });
         return Stack(
@@ -121,59 +125,58 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
                 ),
               ),
             ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 48,
-            vertical: 48,
-          ),
-          child: Container(
-            height: 48,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 12,
-                    offset: Offset(0, 12))
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                
-                Expanded(
-                  flex: 7,
-                  child: FlatButton(
-                    //padding: EdgeInsets.only(
-                      //  right: MediaQuery.of(context).size.width - 200),
-                    onPressed: () async {
-                      Prediction p = await PlacesAutocomplete.show(
-                          context: context, apiKey: kGoogleApiKey);
-                      await displayPrediction(p, scaffoldkey.currentState);
-                    },
-                    child: Text(
-                      "Chercher un lieu",
-                      style: TextStyle(
-                          color: ThemeColors.greyBG,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 48,
+                vertical: 48,
+              ),
+              child: Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 12,
+                        offset: Offset(0, 12))
+                  ],
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Image.asset(
-                    'assets/icons/Search.png',
-                    height: 22,
-                  ),
-                )
-              ],
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 7,
+                      child: FlatButton(
+                        //padding: EdgeInsets.only(
+                        //  right: MediaQuery.of(context).size.width - 200),
+                        onPressed: () async {
+                          Prediction p = await PlacesAutocomplete.show(
+                              context: context, apiKey: kGoogleApiKey);
+                          await displayPrediction(p, scaffoldkey.currentState);
+                        },
+                        child: Text(
+                          "Chercher un lieu",
+                          style: TextStyle(
+                              color: ThemeColors.greyBG,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Image.asset(
+                        'assets/icons/Search.png',
+                        height: 22,
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
           ],
         );
       },

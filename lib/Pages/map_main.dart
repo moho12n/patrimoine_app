@@ -4,7 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:patrimoine_app/Models/marker.dart';
 import 'package:patrimoine_app/UI/pop_up_Feedback.dart' as prefix0;
+import 'package:patrimoine_app/controllers/addMakerController.dart';
+import 'package:patrimoine_app/controllers/markersController.dart';
 import 'dart:ui' show ImageFilter;
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -40,6 +43,15 @@ class _MyStatefulWidgetState extends State<MainMap> {
   LatLng _lastMapPosition = _center;
 
   MapType _currentMapType = MapType.normal;
+
+  @override
+  void initState() {
+    setState(() {
+      setMarkers();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     myContext = context;
@@ -107,12 +119,11 @@ class _MyStatefulWidgetState extends State<MainMap> {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                
                 Expanded(
                   flex: 7,
                   child: FlatButton(
                     //padding: EdgeInsets.only(
-                      //  right: MediaQuery.of(context).size.width - 200),
+                    //  right: MediaQuery.of(context).size.width - 200),
                     onPressed: () async {
                       Prediction p = await PlacesAutocomplete.show(
                           context: context, apiKey: kGoogleApiKey);
@@ -167,6 +178,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
 
   //****** */
   void _onMapTypeButtonPressed() {
+    makeGetRequestMarkers();
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
@@ -176,6 +188,8 @@ class _MyStatefulWidgetState extends State<MainMap> {
 
   _onAddMarkerButtonPressed() {
     setState(() {
+      makePostAddMarker(_lastMapPosition.toString(), _lastMapPosition.latitude,
+          _lastMapPosition.longitude, 3);
       markers.add(Marker(
         onTap: () {
           showPopUp(myContext);
@@ -194,6 +208,27 @@ class _MyStatefulWidgetState extends State<MainMap> {
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     _controller.complete(controller);
+  }
+
+  void setMarkers() async {
+    var notes = List<MarkersModel>();
+    notes = await makeGetRequestMarkers();
+
+    notes.forEach((document) {
+      setState(() {
+        markers.add(Marker(
+          onTap: () {
+            showPopUp(myContext);
+          },
+          markerId: MarkerId(document.id.toString()),
+          position: LatLng(
+            double.tryParse(document.latitude),
+            double.tryParse(document.longitude),
+          ),
+          icon: BitmapDescriptor.defaultMarker,
+        ));
+      });
+    });
   }
 }
 

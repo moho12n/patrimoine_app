@@ -20,6 +20,9 @@ void main() async {
       UserOnline.userIsOnline.toString() +
       "user is : " +
       UserOnline.user.toString());
+ 
+
+
   runApp(MaterialApp(
     home: UserOnline.userIsOnline ? MyApp() : SignUpFirstPage(),
     debugShowCheckedModeBanner: false,
