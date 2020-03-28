@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:patrimoine_app/Models/marker.dart';
 import 'package:patrimoine_app/UI/pop_up_Feedback.dart' as prefix0;
 import 'package:patrimoine_app/controllers/addMakerController.dart';
+import 'package:patrimoine_app/controllers/avisController.dart';
 import 'package:patrimoine_app/controllers/markersController.dart';
 import 'dart:ui' show ImageFilter;
 import '../theme.dart';
@@ -178,7 +179,6 @@ class _MyStatefulWidgetState extends State<MainMap> {
 
   //****** */
   void _onMapTypeButtonPressed() {
-    makeGetRequestMarkers();
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
@@ -192,7 +192,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
           _lastMapPosition.longitude, 3);
       markers.add(Marker(
         onTap: () {
-          showPopUp(myContext);
+          showPopUp(myContext, _lastMapPosition.toString());
         },
         markerId: MarkerId(_lastMapPosition.toString()),
         position: _lastMapPosition,
@@ -218,7 +218,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
       setState(() {
         markers.add(Marker(
           onTap: () {
-            showPopUp(myContext);
+            showPopUp(myContext, document.id.toString());
           },
           markerId: MarkerId(document.id.toString()),
           position: LatLng(
@@ -232,7 +232,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
   }
 }
 
-void showPopUp(BuildContext context2) {
+void showPopUp(BuildContext context2, String markerId) {
   if (indexGlobal == 2) {
     Navigator.of(context2).push(
       PageRouteBuilder(
@@ -242,7 +242,7 @@ void showPopUp(BuildContext context2) {
   if (indexGlobal == 1) {
     Navigator.of(context2).push(
       PageRouteBuilder(
-          pageBuilder: (context2, _, __) => Dialog2(), opaque: false),
+          pageBuilder: (context2, _, __) => Dialog2(markerId), opaque: false),
     );
   }
 }

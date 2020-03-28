@@ -6,10 +6,11 @@ import 'package:patrimoine_app/Pages/sign_up.dart';
 import 'Pages/map_main.dart';
 import 'package:flutter/material.dart';
 import 'Pages/exploring_page.dart';
+import 'controllers/avisController.dart';
 import 'theme.dart';
 import 'Pages/adminMap_page.dart';
 import 'State/UserOnline.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'Models/User.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ void main() async {
       UserOnline.user.toString());
  
 
-
+  
   runApp(MaterialApp(
     home: UserOnline.userIsOnline ? MyApp() : SignUpFirstPage(),
     debugShowCheckedModeBanner: false,

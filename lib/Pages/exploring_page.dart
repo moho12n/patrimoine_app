@@ -183,7 +183,7 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
       setState(() {
         markers.add(Marker(
           onTap: () {
-            showPopUp(myContext);
+            showPopUp(myContext,document.id.toString());
           },
           markerId: MarkerId(document.id.toString()),
           position: LatLng(

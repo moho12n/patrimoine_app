@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:io';
 //import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:patrimoine_app/controllers/avisController.dart';
 import 'package:patrimoine_app/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './pop_up_ViewImage.dart';
@@ -68,6 +69,10 @@ class MyPopupSurface2 extends StatelessWidget {
 
 //---------
 class Dialog2 extends StatefulWidget {
+  final String markerId;
+
+  const Dialog2(this.markerId);
+
   @override
   _MyDialogState createState() => new _MyDialogState();
 }
@@ -158,67 +163,97 @@ class _MyDialogState extends State<Dialog2> {
                             ),
                             Expanded(
                               flex: 10,
-                              child: ListView.separated(
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                          Divider(),
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 34),
-                                      child: Container(
-                                          child: Column(
-                                        children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Text(
-                                                  "SelmaBn",
-                                                  style: TextStyle(
-                                                    fontFamily: "Montserrat",
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                flex: 0,
-                                              ),
-                                              Expanded(
-                                                child: SizedBox(),
-                                                flex: 1,
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  "12/02/2019",
-                                                  style: TextStyle(
-                                                    fontFamily: "Montserrat",
-                                                    fontWeight: FontWeight.w300,
-                                                    fontSize: 14,
-                                                    color: Color(0xff969494),
-                                                  ),
-                                                ),
-                                                flex: 0,
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "The interior especially the tiles of the grande poste were amazing, no regrets",
-                                            style: TextStyle(
-                                              fontFamily: "Montserrat",
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 13,
-                                              color: Color(0xff969494),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      )),
-                                    );
+                              child: FutureBuilder(
+                                  future: makeGetRequestAvis(widget.markerId),
+                                  builder: (context, snapshot) {
+                                    return snapshot.data != null
+                                        ? ListView.separated(
+                                            separatorBuilder:
+                                                (BuildContext context,
+                                                        int index) =>
+                                                    Divider(),
+                                            itemCount: snapshot.data.length,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 34),
+                                                child: Container(
+                                                    child: Column(
+                                                  children: <Widget>[
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Text(
+                                                            snapshot.data[index]
+                                                                .nomUtilisateur,
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 14,
+                                                            ),
+                                                          ),
+                                                          flex: 0,
+                                                        ),
+                                                        Expanded(
+                                                          child: SizedBox(),
+                                                          flex: 1,
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            snapshot.data[index]
+                                                                .date
+                                                                .toString()
+                                                                .substring(
+                                                                    0, 10),
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300,
+                                                              fontSize: 14,
+                                                              color: Color(
+                                                                  0xff969494),
+                                                            ),
+                                                          ),
+                                                          flex: 0,
+                                                        )
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: Text(
+                                                        snapshot.data[index]
+                                                            .commentaire,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 13,
+                                                          color:
+                                                              Color(0xff969494),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                  ],
+                                                )),
+                                              );
+                                            })
+                                        : Center(
+                                            child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white),
+                                          );
                                   }),
                             ),
                           ],
@@ -240,7 +275,7 @@ class _MyDialogState extends State<Dialog2> {
                                     Expanded(
                                       flex: 0,
                                       child: Text(
-                                        "VOIR LES PHOTOS PARTAGREES",
+                                        "VOIR LES PHOTOS PARTAGEES",
                                         style: TextStyle(
                                           fontFamily: "Montserrat",
                                           fontWeight: FontWeight.w600,
