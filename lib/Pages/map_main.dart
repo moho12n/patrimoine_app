@@ -8,6 +8,7 @@ import 'package:patrimoine_app/Models/marker.dart';
 import 'package:patrimoine_app/UI/pop_up_Feedback.dart' as prefix0;
 import 'package:patrimoine_app/controllers/addMakerController.dart';
 import 'package:patrimoine_app/controllers/avisController.dart';
+import 'package:patrimoine_app/controllers/imageController.dart';
 import 'package:patrimoine_app/controllers/markersController.dart';
 import 'dart:ui' show ImageFilter;
 import '../theme.dart';
@@ -179,6 +180,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
 
   //****** */
   void _onMapTypeButtonPressed() {
+    makeGetRequestImages("1");
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
