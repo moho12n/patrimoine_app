@@ -422,7 +422,7 @@ class _ImageTile extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             PageRouteBuilder(
-                pageBuilder: (context, _, __) => Dialog3(), opaque: false),
+                pageBuilder: (context, _, __) => Dialog3(markerId,gridImage), opaque: false),
           );
         },
         child: Container(

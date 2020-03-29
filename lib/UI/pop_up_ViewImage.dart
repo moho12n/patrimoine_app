@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:io';
 //import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:patrimoine_app/controllers/singleAvisController.dart';
 import 'package:patrimoine_app/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -67,6 +68,9 @@ class MyPopupSurface3 extends StatelessWidget {
 
 //---------
 class Dialog3 extends StatefulWidget {
+  Dialog3(this.markerId, this.imageLink);
+  final markerId;
+  final imageLink;
   @override
   _MyDialogState createState() => new _MyDialogState();
 }
@@ -104,74 +108,96 @@ class _MyDialogState extends State<Dialog3> {
                 height: MediaQuery.of(context).size.height,
                 padding: const EdgeInsets.all(0),
                 alignment: childAlignment,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 54,
-                    ),
-                    Expanded(
-                      flex: 0,
-                      child: Row(
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Icon(Icons.arrow_back),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(""),
-                      flex: 10,
-                    ),
-                    Divider(),
-                    SizedBox(height: 10,),
-                    Expanded(
-                      flex: 0,
-                      child: Container(
-                        alignment: Alignment.bottomLeft,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 40),
-                              child: Text(
-                                "YoucefBtld",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Color(0xff757575),
+                child: FutureBuilder(
+                    future: makeGetRequestSingleAvis(widget.markerId),
+                    builder: (context, snapshot) {
+                      return snapshot.data != null
+                          ? Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 54,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(horizontal: 40),
-                              child: Text(
-                                "Les moulures de la galerie extérieure de la Grande Poste.",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 13,
-                                  color: Color(0xff757575),
+                                Expanded(
+                                  flex: 0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Icon(Icons.arrow_back),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                                Expanded(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(widget.imageLink),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        const Radius.circular(10.0)),
+                                  )),
+                                  flex: 10,
+                                ),
+                                Divider(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Expanded(
+                                  flex: 0,
+                                  child: Container(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 40),
+                                          child: Text(
+                                            snapshot.data.nomUtilisateur,
+                                            style: TextStyle(
+                                              fontFamily: "Montserrat",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xff757575),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 40),
+                                          child: Text(
+                                            snapshot.data.commentaire,
+                                            style: TextStyle(
+                                              fontFamily: "Montserrat",
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 13,
+                                              color: Color(0xff757575),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 24,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          : Center(
+                              child: CircularProgressIndicator(
+                                  backgroundColor: Colors.white),
+                            );
+                    }),
               )));
     });
   }
