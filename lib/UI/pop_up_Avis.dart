@@ -7,12 +7,16 @@ import 'dart:async';
 import 'dart:io';
 //import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:patrimoine_app/Models/imageModel.dart';
 import 'package:patrimoine_app/controllers/avisController.dart';
+import 'package:patrimoine_app/controllers/imageController.dart';
 import 'package:patrimoine_app/theme.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './pop_up_ViewImage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 //------------------ POP UP --------------------//
+bool parcourue = false;
 
 class MyDialog2 extends StatelessWidget {
   const MyDialog2({
@@ -89,6 +93,9 @@ class _MyDialogState extends State<Dialog2> {
         });
       },
     );
+    parcourue = false;
+    _tiles.clear();
+    _staggeredTiles.clear();
     super.initState();
   }
 
@@ -258,56 +265,80 @@ class _MyDialogState extends State<Dialog2> {
                             ),
                           ],
                         )
-                      : Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                              Expanded(
-                                child: SizedBox(),
-                                flex: 1,
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Row(children: <Widget>[
-                                    Expanded(
-                                      child: SizedBox(),
-                                      flex: 2,
-                                    ),
-                                    Expanded(
-                                      flex: 0,
-                                      child: Text(
-                                        "VOIR LES PHOTOS PARTAGEES",
-                                        style: TextStyle(
-                                          fontFamily: "Montserrat",
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: Color(0xff000000),
+                      : FutureBuilder(
+                          future: makeGetRequestImages(widget.markerId),
+                          builder: (context, snapshot) {
+                            print("parcourue " + parcourue.toString());
+                            print("tiles par "+ _tiles.toString());
+                            if (snapshot.data != null && parcourue == false) {
+                              snapshot.data.forEach((e) {
+                                parcourue = true;
+                                print("snapshot" + e.toString());
+                                _tiles.add(_ImageTile(
+                                    "https://tourathi-dz.com/storage/app/public/" +
+                                        e.image,
+                                    widget.markerId));
+                                print(_tiles.toString());
+                                _staggeredTiles.add(StaggeredTile.count(2, 1));
+                              });
+                            }
+
+                            return snapshot != null
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                        Expanded(
+                                          child: SizedBox(),
+                                          flex: 1,
                                         ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(),
-                                      flex: 2,
-                                    ),
-                                    Expanded(
-                                      flex: 0,
-                                      child: Container(
-                                        alignment: Alignment.topRight,
-                                        child: FlatButton(
-                                          onPressed: () {
-                                            Navigator.pop(
-                                              context,
-                                            );
-                                          },
-                                          child: Icon(Icons.close),
-                                        ),
-                                      ),
-                                    ),
-                                  ])),
-                              Expanded(
-                                child: ImageTile(),
-                                flex: 10,
-                              )
-                            ]),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Row(children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(),
+                                                flex: 2,
+                                              ),
+                                              Expanded(
+                                                flex: 0,
+                                                child: Text(
+                                                  "VOIR LES PHOTOS PARTAGEES",
+                                                  style: TextStyle(
+                                                    fontFamily: "Montserrat",
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 16,
+                                                    color: Color(0xff000000),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: SizedBox(),
+                                                flex: 2,
+                                              ),
+                                              Expanded(
+                                                flex: 0,
+                                                child: Container(
+                                                  alignment: Alignment.topRight,
+                                                  child: FlatButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                        context,
+                                                      );
+                                                    },
+                                                    child: Icon(Icons.close),
+                                                  ),
+                                                ),
+                                              ),
+                                            ])),
+                                        Expanded(
+                                          child: ImageTile(widget.markerId),
+                                          flex: 10,
+                                        )
+                                      ])
+                                : Center(
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white),
+                                  );
+                          }),
                   bottomNavigationBar: BottomNavigationBar(
                     backgroundColor: Colors.white,
                     selectedItemColor: ThemeColors.Green,
@@ -343,50 +374,43 @@ class _MyDialogState extends State<Dialog2> {
   }
 }
 
-List<Widget> _tiles = const <Widget>[
-  const _ImageTile('https://picsum.photos/200/300/?random'),
-  const _ImageTile('https://picsum.photos/201/300/?random'),
-  const _ImageTile('https://picsum.photos/202/300/?random'),
-  const _ImageTile('https://picsum.photos/203/300/?random'),
-  const _ImageTile('https://picsum.photos/204/300/?random'),
-  const _ImageTile('https://picsum.photos/205/300/?random'),
-  const _ImageTile('https://picsum.photos/206/300/?random'),
-  const _ImageTile('https://picsum.photos/207/300/?random'),
-  const _ImageTile('https://picsum.photos/208/300/?random'),
-  const _ImageTile('https://picsum.photos/209/300/?random'),
-];
-List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
-  const StaggeredTile.count(2, 2),
-  const StaggeredTile.count(2, 1),
-  const StaggeredTile.count(1, 2),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(2, 2),
-  const StaggeredTile.count(1, 2),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(3, 1),
-  const StaggeredTile.count(1, 1),
-  const StaggeredTile.count(4, 1),
-];
+List<Widget> _tiles = List<Widget>();
+List<StaggeredTile> _staggeredTiles = List<StaggeredTile>();
 
-class ImageTile extends StatelessWidget {
+class ImageTile extends StatefulWidget {
+  final String idMarker;
+  const ImageTile(this.idMarker);
+
+  @override
+  _ImageTileState createState() => _ImageTileState();
+}
+
+class _ImageTileState extends State<ImageTile> {
+  List<ImageModel> imageList = List<ImageModel>();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-            padding: const EdgeInsets.only(top: 12.0),
-            child: StaggeredGridView.count(
-              crossAxisCount: 4,
-              staggeredTiles: _staggeredTiles,
-              children: _tiles,
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
-            )));
+      padding: const EdgeInsets.only(top: 12.0),
+      child: StaggeredGridView.count(
+        crossAxisCount: 4,
+        staggeredTiles: _staggeredTiles,
+        children: _tiles,
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+      ),
+    ));
   }
 }
 
 class _ImageTile extends StatelessWidget {
-  const _ImageTile(this.gridImage);
-
+  const _ImageTile(this.gridImage, this.markerId);
+  final markerId;
   final gridImage;
 
   @override

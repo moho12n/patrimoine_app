@@ -235,6 +235,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
 }
 
 void showPopUp(BuildContext context2, String markerId) {
+  parcourue = false;
   if (indexGlobal == 2) {
     Navigator.of(context2).push(
       PageRouteBuilder(
@@ -242,6 +243,7 @@ void showPopUp(BuildContext context2, String markerId) {
     );
   }
   if (indexGlobal == 1) {
+    
     Navigator.of(context2).push(
       PageRouteBuilder(
           pageBuilder: (context2, _, __) => Dialog2(markerId), opaque: false),

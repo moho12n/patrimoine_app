@@ -21,6 +21,6 @@ Future<List<ImageModel>> makeGetRequestImages(String idMarker) async {
     var vr = js as Map<String, dynamic>;
     images.add(ImageModel.fromJson(vr));
   });
-
+  print(images.toString());
   return images;
 }
