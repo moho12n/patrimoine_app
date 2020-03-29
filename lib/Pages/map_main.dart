@@ -10,6 +10,7 @@ import 'package:patrimoine_app/controllers/addMakerController.dart';
 import 'package:patrimoine_app/controllers/avisController.dart';
 import 'package:patrimoine_app/controllers/imageController.dart';
 import 'package:patrimoine_app/controllers/markersController.dart';
+import 'package:patrimoine_app/controllers/singleAvisController.dart';
 import 'dart:ui' show ImageFilter;
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -180,7 +181,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
 
   //****** */
   void _onMapTypeButtonPressed() {
-    makeGetRequestImages("1");
+    makeGetRequestSingleAvis("1");
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
