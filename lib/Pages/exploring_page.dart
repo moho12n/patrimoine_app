@@ -6,7 +6,7 @@ import 'package:patrimoine_app/Models/marker.dart';
 import 'package:patrimoine_app/Pages/map_main.dart' as prefix0;
 import 'package:patrimoine_app/controllers/markersController.dart';
 import 'package:patrimoine_app/theme.dart';
-
+import 'package:geolocator/geolocator.dart';
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -79,6 +79,19 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
                 ),
                 SizedBox(height: 16.0),
               ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              heroTag: "floatActbtn2",
+              onPressed: _getLocation,
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              backgroundColor: ThemeColors.Green,
+              child: const Icon(Icons.my_location, size: 26.0),
             ),
           ),
         ),
@@ -159,6 +172,22 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
     }
   }
 
+  dynamic _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    setState(() {
+      mapController.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(
+            currentLocation.latitude,
+            currentLocation.longitude,
+          ),
+        ),
+      );
+    });
+    return currentLocation;
+  }
+
   void _onMapTypeButtonPressed() {
     setState(() {
       _currentMapType = _currentMapType == MapType.normal
@@ -172,6 +201,7 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
     _controller.complete(controller);
   }
 
@@ -183,7 +213,7 @@ class _MyStatefulWidgetState extends State<ExploringMap> {
       setState(() {
         markers.add(Marker(
           onTap: () {
-            showPopUp(myContext,document.id.toString());
+            showPopUp(myContext, document.id.toString());
           },
           markerId: MarkerId(document.id.toString()),
           position: LatLng(

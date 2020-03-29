@@ -15,6 +15,7 @@ import '../main.dart';
 import '../UI/pop_up_Avis.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:patrimoine_app/UI/pop_up_AdminAvis.dart';
+import 'package:geolocator/geolocator.dart';
 
 Set<Marker> adminMarkers = {};
 BuildContext myAdminContext;
@@ -40,7 +41,6 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
   Uint8List markerIcon;
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -126,6 +126,20 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
               ),
             ),
             Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  heroTag: "floatActbtn2",
+                  onPressed: _getLocation,
+                  materialTapTargetSize: MaterialTapTargetSize.padded,
+                  backgroundColor: ThemeColors.Green,
+                  child: const Icon(Icons.my_location, size: 26.0),
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 48,
                 vertical: 48,
@@ -203,6 +217,22 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
           ),
         );
     }
+  }
+
+  dynamic _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    setState(() {
+      mapController.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(
+            currentLocation.latitude,
+            currentLocation.longitude,
+          ),
+        ),
+      );
+    });
+    return currentLocation;
   }
 
   //****** */

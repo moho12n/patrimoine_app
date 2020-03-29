@@ -17,6 +17,7 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import '../main.dart';
 import '../UI/pop_up_Avis.dart';
+import 'package:geolocator/geolocator.dart';
 
 Set<Marker> markers = {};
 BuildContext myContext;
@@ -103,6 +104,19 @@ class _MyStatefulWidgetState extends State<MainMap> {
           ),
         ),
         Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              heroTag: "floatActbtn2",
+              onPressed: _getLocation,
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              backgroundColor: ThemeColors.Green,
+              child: const Icon(Icons.my_location, size: 26.0),
+            ),
+          ),
+        ),
+        Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 48,
             vertical: 48,
@@ -157,7 +171,23 @@ class _MyStatefulWidgetState extends State<MainMap> {
       ],
     );
   }
+
   //****** */
+  dynamic _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    setState(() {
+      mapController.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(
+            currentLocation.latitude,
+            currentLocation.longitude,
+          ),
+        ),
+      );
+    });
+    return currentLocation;
+  }
 
   Future<Null> displayPrediction(Prediction p, ScaffoldState scaffold) async {
     if (p != null) {
@@ -244,7 +274,6 @@ void showPopUp(BuildContext context2, String markerId) {
     );
   }
   if (indexGlobal == 1) {
-    
     Navigator.of(context2).push(
       PageRouteBuilder(
           pageBuilder: (context2, _, __) => Dialog2(markerId), opaque: false),
