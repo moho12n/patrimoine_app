@@ -108,7 +108,7 @@ class _MyStatefulWidgetState extends State<MainMap> {
           child: Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
-              heroTag: "floatActbtn2",
+              heroTag: "floatActbtn3",
               onPressed: _getLocation,
               materialTapTargetSize: MaterialTapTargetSize.padded,
               backgroundColor: ThemeColors.Green,
@@ -270,7 +270,7 @@ void showPopUp(BuildContext context2, String markerId) {
   if (indexGlobal == 2) {
     Navigator.of(context2).push(
       PageRouteBuilder(
-          pageBuilder: (context2, _, __) => prefix0.Dialog(), opaque: false),
+          pageBuilder: (context2, _, __) => prefix0.Dialog(markerId), opaque: false),
     );
   }
   if (indexGlobal == 1) {

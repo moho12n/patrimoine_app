@@ -27,6 +27,6 @@ class AvisModel {
 
   @override
   String toString() {
-    return '{ id : ${this.id}, commentaire: ${commentaire},nomUtilisateur: ${nomUtilisateur}, age: ${age},lieuResidence:  ${lieuResidence} , sexe: ${sexe}, markerId: $markerId, created_at: $date, images: {${images.toString()}}';
+    return '{ id : ${this.id}, commentaire: "${commentaire}",nomUtilisateur: "${nomUtilisateur}", age: "${age}",lieuResidence:  "${lieuResidence}" , sexe: "${sexe}", markerId: "$markerId", created_at: "$date", images: "{${images.toString()}"}';
   }
 }

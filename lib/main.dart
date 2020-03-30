@@ -15,15 +15,18 @@ import 'Models/User.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  UserOnline.numberOfMarkers = 0;
   UserOnline.user = User();
   await getUser();
-  print("user is online " +
-      UserOnline.userIsOnline.toString() +
-      "user is : " +
-      UserOnline.user.toString());
- 
-
+  await getNumberOfMarkers();
   
+  print("user is online  " +
+      UserOnline.userIsOnline.toString() +
+      "user is :  " +
+      UserOnline.user.toString() +
+      "number of markers :" +
+      UserOnline.numberOfMarkers.toString());
+
   runApp(MaterialApp(
     home: UserOnline.userIsOnline ? MyApp() : SignUpFirstPage(),
     debugShowCheckedModeBanner: false,
@@ -102,4 +105,3 @@ class _MyAppState extends State<MyApp> {
     return _currentIndex;
   }
 }
-

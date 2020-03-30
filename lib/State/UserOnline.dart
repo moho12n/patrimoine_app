@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserOnline {
   static User user;
   static bool userIsOnline;
+  static int numberOfMarkers;
 }
 
 Future saveUser() async {
@@ -22,4 +23,16 @@ Future getUser() async {
   UserOnline.user.adress = await prefs.getString("adress") ?? "none";
   UserOnline.user.gender = await prefs.getString("gender") ?? "none";
   UserOnline.userIsOnline = await prefs.getBool("userIsOnline") ?? false;
+}
+
+saveNumberOfMarkers() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt("numberOfMarkers", UserOnline.numberOfMarkers);
+}
+
+getNumberOfMarkers() async {
+  final prefs = await SharedPreferences.getInstance();
+  var i;
+  i = await prefs.getInt("numberOfMarkers");
+  if (i != null) UserOnline.numberOfMarkers = i;
 }

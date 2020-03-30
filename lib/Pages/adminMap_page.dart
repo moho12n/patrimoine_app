@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:patrimoine_app/State/UserOnline.dart';
 import 'package:patrimoine_app/UI/pop_up_Feedback.dart' as prefix0;
+import 'package:patrimoine_app/controllers/addMakerController.dart';
 import 'dart:ui' show ImageFilter;
 import '../theme.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -64,12 +66,21 @@ class _MyAdminMapWidgetState extends State<AdminMap> {
             .collection('markers')
             .snapshots()
             .listen((QuerySnapshot querySnapshot) {
-          querySnapshot.documents.forEach((document) {
-            print(
-                "Title: ${document.data['title']}, Latitude = ${document.data['latitude']}, longitude = ${document.data['longitude']} ");
-
+          querySnapshot.documents.forEach((document) async {
             if ((document.data['longitude'] != null) &&
                 (document.data['latitude'] != null)) {
+              /*  if (querySnapshot.documents.length !=
+                  UserOnline.numberOfMarkers) {*/
+              print("********** Adding markers *************");
+              /* await makePostAddMarker(
+                  document.data['title'],
+                  double.tryParse(document.data['latitude'].toString()),
+                  double.tryParse(document.data['longitude'].toString()),
+                  3);
+              UserOnline.numberOfMarkers = querySnapshot.documents.length;
+              saveNumberOfMarkers();
+*/
+              print("title : " + document.data['title'].toString());
               adminMarkers.add(Marker(
                   draggable: false,
                   icon:
